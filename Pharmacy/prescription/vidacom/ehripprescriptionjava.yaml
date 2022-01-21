@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: csi-java-ehr-ip-doctor-prescription
-  namespace: csi-dev
+  namespace: vidacom
 spec:
   replicas: 1
   selector:
@@ -105,7 +105,7 @@ metadata:
   labels:
     app: csi-java-ehr-ip-doctor-prescription
   name: csi-java-ehr-ip-doctor-prescription
-  namespace: csi-dev
+  namespace: vidacom
 spec:
   ports:
     - port: 80
