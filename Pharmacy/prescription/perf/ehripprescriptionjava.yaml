@@ -30,6 +30,11 @@ spec:
                 configMapKeyRef:
                   key: active_profile
                   name: service-config-pharmacy
+            - name: apm_server
+              valueFrom:
+                configMapKeyRef:
+                  key: apm_server
+                  name: service-configs
             - name: SPRING_DATASOURCE_URL
               valueFrom:
                 configMapKeyRef:
@@ -70,29 +75,15 @@ spec:
                 configMapKeyRef:
                   key: discharge-summary-clear-notification
                   name: service-config-pharmacy
-            - name: SPRING_RABBITMQ_HOST
-              valueFrom:
-                configMapKeyRef:
-                  key: SPRING_RABBITMQ_HOST
-                  name: service-configs
-            - name: SPRING_RABBITMQ_PORT
-              valueFrom:
-                configMapKeyRef:
-                  key: SPRING_RABBITMQ_PORT
-                  name: service-configs
-            - name: SPRING_RABBITMQ_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  key: SPRING_RABBITMQ_USERNAME
-                  name: service-configs-secret
-            - name: SPRING_RABBITMQ_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: SPRING_RABBITMQ_PASSWORD
-                  name: service-configs-secret
             - name: hostname
               value: csi-java-ehr-ip-doctor-prescription
-          image: 'harbor.cs.local/vidaplus/csi-java-ehr-ip-doctor-prescription:4.0.20.2'
+          envFrom:
+            - configMapRef:
+                name: service-configs
+            - secretRef:
+                name: service-configs-secret
+          image: >-
+            harbor.cs.local/vidaplus/csi-java-ehr-ip-doctor-prescription:4.0.20.2
           livenessProbe:
             httpGet:
               path: /api/health/liveness
@@ -111,7 +102,7 @@ spec:
             timeoutSeconds: 10
           resources:
             limits:
-              memory: 5Gi
+              memory: 3Gi
             requests:
               cpu: 50m
               memory: 2Gi
@@ -132,3 +123,4 @@ spec:
   selector:
     app: csi-java-ehr-ip-doctor-prescription
   type: ClusterIP
+
