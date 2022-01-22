@@ -12,8 +12,6 @@ spec:
       track: stable
   template:
     metadata:
-      annotations:
-        notifications.argoproj.io/subscribe.on-sync-succeeded.slack
       labels:
         app: csi-adt-ui
         module: adt
