@@ -35,6 +35,11 @@ spec:
                 configMapKeyRef:
                   key: pharmacy-db-url
                   name: service-config-pharmacy
+            - name: apm_server
+              valueFrom:
+                configMapKeyRef:
+                  key: apm_server
+                  name: service-configs
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -82,13 +87,19 @@ spec:
                   name: service-pharmacy-secret
             - name: hostname
               value: csi-phr-base
+          envFrom:
+            - configMapRef:
+                name: service-configs
+            - secretRef:
+                name: service-configs-secret
           image: 'harbor.cs.local/vidaplus/csi-phr-base:4.0.22.84'
           livenessProbe:
             httpGet:
               path: /api/v1.0/actuator/health
               port: http
             initialDelaySeconds: 1200
-            timeoutSeconds: 10
+            periodSeconds: 40
+            timeoutSeconds: 30
           name: csi-phr-base
           ports:
             - containerPort: 80
@@ -98,12 +109,13 @@ spec:
               path: /api/v1.0/actuator/health
               port: http
             initialDelaySeconds: 20
-            timeoutSeconds: 10
+            periodSeconds: 40
+            timeoutSeconds: 30
           resources:
             limits:
               memory: 2Gi
             requests:
-              cpu: 50m
+              cpu: 600m
               memory: 1Gi
       imagePullSecrets:
         - name: regcred
