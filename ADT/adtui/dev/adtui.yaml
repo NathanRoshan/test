@@ -1,8 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations: 
-    notifications.argoproj.io/subscribe.on-sync-succeeded.slack
   name: csi-adt-ui
   namespace: csi-dev
 spec:
@@ -14,6 +12,8 @@ spec:
       track: stable
   template:
     metadata:
+      annotations:
+        notifications.argoproj.io/subscribe.on-sync-succeeded.slack
       labels:
         app: csi-adt-ui
         module: adt
