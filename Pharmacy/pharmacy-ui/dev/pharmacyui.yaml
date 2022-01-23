@@ -19,7 +19,7 @@ spec:
         track: stable
     spec:
       containers:
-        - image: harbor.cs.local/vidaplus/pharmacy-ui:4.0.24.6 #4.0.24.23 #4.0.24.6
+        - image: harbor.cs.local/vidaplus/pharmacy-ui:4.0.24.24 #4.0.24.23 #4.0.24.6
           imagePullPolicy: IfNotPresent
           name: csi-pharmacy-ui
           ports:
