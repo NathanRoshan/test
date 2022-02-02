@@ -4,7 +4,7 @@ metadata:
   name: csi-rms-morgue
   namespace: csi-perf
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: csi-rms-morgue
