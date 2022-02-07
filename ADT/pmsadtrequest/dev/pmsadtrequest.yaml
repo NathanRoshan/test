@@ -52,7 +52,7 @@ spec:
             - secretRef:
                 name: service-adt-secret
           image: >-
-            harbor.cs.local/vidaplus/csi-pms-adt-request-java-sev:4.1.8.0-b1
+            harbor.cs.local/vidaplus/csi-pms-adt-request-java-sev:4.1.8.0
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
