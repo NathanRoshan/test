@@ -73,7 +73,7 @@ spec:
             - secretRef:
                 name: service-adt-secret
           image: >-
-            harbor.cs.local/vidaplus/csi-rms-reservation-java-sev:4.1.27.0-b1
+            harbor.cs.local/vidaplus/csi-rms-reservation-java-sev:4.1.27.0-b2
           imagePullPolicy: Always
           livenessProbe:
             httpGet:
