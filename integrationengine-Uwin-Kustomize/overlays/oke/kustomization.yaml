@@ -7,8 +7,8 @@ bases:
 #- rollout-csi-bloodbank-ui-rollout-csi-net-bloodbnk-service.yaml
 
 patchesStrategicMerge:
-- replica-count1.yaml
+- replica-count.yaml
 
 images:
-- name: harbor.cs.local/vidaplus/adt-ui
-  newTag: 4.3.41.0
+- name: harbor.cs.local/vidaplus/csi-ie-general
+  newTag: 4.1.137.16 #4.1.136.0
