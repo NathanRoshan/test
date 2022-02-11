@@ -83,7 +83,7 @@ spec:
             - secretRef:
                 name: service-configs-secret
           image: >-
-            harbor.cs.local/vidaplus/csi-java-ehr-ip-doctor-prescription:4.0.20.14
+            harbor.cs.local/vidaplus/csi-java-ehr-ip-doctor-prescription:4.0.20.15
           livenessProbe:
             httpGet:
               path: /api/health/liveness
