@@ -4,7 +4,7 @@ metadata:
   name: csi-rms-reservation
   namespace: csi-dev
 spec:
-  replicas: 2
+  replicas: 0
   selector:
     matchLabels:
       app: csi-rms-reservation
