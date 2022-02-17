@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+  kind: Job
+  metadata:
+    name: hawkscan
+  spec:
+    backoffLimit: 0
+    template:
+      spec:
+        containers:
+          - command:
+            - /bin/bash
+            - '-c'
+            - |
+              git clone $REPO_URL $REPO_DIR
+              shawk
+            env:
+              - name: API_KEY
+                valueFrom:
+                  secretKeyRef:
+                    key: API_KEY
+                    name: stackhawk-secrets
+              - name: REPO_DIR
+                value: /home/zap/workdir
+              - name: REPO_URL
+                value: 'https://github.com/<YOUR-ORG>/<YOUR-REPO>.git'
+            image: 'stackhawk/hawkscan:latest'
+            name: hawkscan
+        restartPolicy: Never
+    ttlSecondsAfterFinished: 600
