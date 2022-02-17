@@ -22,7 +22,7 @@ apiVersion: batch/v1
               - name: REPO_DIR
                 value: /home/zap/workdir
               - name: REPO_URL
-                value: 'https://github.com/<YOUR-ORG>/<YOUR-REPO>.git'
+                value: 'https://${BITBUCKET_CREDENTIALS_USR}:${encodedPass}@bitbucket.com/yourrepo.git'
             image: 'stackhawk/hawkscan:latest'
             name: hawkscan
         restartPolicy: Never
