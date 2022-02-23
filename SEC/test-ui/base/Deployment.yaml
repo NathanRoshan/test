@@ -17,7 +17,7 @@ spec:
         track: stable
     spec:
       containers:
-        - image: 'harbor.cs.local/vidaplus/security-test-ui:0.0.0.1'
+        - image: harbor.cs.local/vidaplus/test-ui:0.0.0.1
           imagePullPolicy: IfNotPresent
           name: csi-ehr-er-ui
           ports:
