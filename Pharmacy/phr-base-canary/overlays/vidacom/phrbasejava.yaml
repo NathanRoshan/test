@@ -82,7 +82,7 @@ spec:
                   name: service-pharmacy-secret
             - name: hostname
               value: csi-phr-base
-          image: harbor.cs.local/vidaplus/csi-phr-base:4.0.22.190
+          image: harbor.cs.local/vidaplus/csi-phr-base:4.0.22.191
           livenessProbe:
             httpGet:
               path: /api/v1.0/actuator/health
