@@ -11,4 +11,4 @@ patchesStrategicMerge:
 
 images:
 - name: harbor.cs.local/vidaplus/csi-phr-base
-  newTag: 4.0.22.193 #4.0.22.187 #4.0.22.186 #4.0.22.181 #4.0.22.175
+  newTag: 4.0.22.194 #4.0.22.193 #4.0.22.187 #4.0.22.186 #4.0.22.181
