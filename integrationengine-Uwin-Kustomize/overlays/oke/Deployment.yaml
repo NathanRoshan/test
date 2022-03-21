@@ -41,7 +41,7 @@ spec:
                 name: service-configs-integration
             - secretRef:
                 name: service-integration-secret
-          image: harbor.cs.local/vidaplus/csi-ie-general:4.1.138.12
+          image: harbor.cs.local/vidaplus/csi-ie-general:4.1.138.14
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
