@@ -3,7 +3,7 @@ bases:
 - ../../base
 images:
 - name: harbor.cs.local/vidaplus/test-ui
-  newTag: master-v1.2.0.36-gec44513
+  newTag: master-v1.2.0.40-gec44513
 kind: Kustomization
 namespace: csi-dev
 patchesStrategicMerge:
