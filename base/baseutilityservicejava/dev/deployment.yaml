@@ -1,47 +1,93 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: csi-net-bloodbnk
+  name: csi-base-utility
   namespace: csi-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: csi-net-bloodbnk
+      app: csi-base-utility
       tier: backend
       track: stable
   template:
     metadata:
       labels:
-        app: csi-net-bloodbnk
-        module: bloodbank
+        app: csi-base-utility
+        module: base
         tier: backend
         track: stable
     spec:
       containers:
         - env:
-            - name: ASPNETCORE_ENVIRONMENT
+            - name: active_profile
               valueFrom:
                 configMapKeyRef:
-                  key: net_environment
+                  key: activeProfile
                   name: service-configs
-            - name: config_server
+            - name: configserver
               valueFrom:
                 configMapKeyRef:
                   key: config_server
                   name: service-configs
-          image: harbor.cs.local/vidaplus/bb-donation-srv:4.1.10.0
+            - name: SPRING_JPA_HIBERNATE_DIALECT
+              valueFrom:
+                configMapKeyRef:
+                  key: db-dialect
+                  name: baseutil-database-configs
+            - name: SPRING_JPA_DATABASE-PLATFORM
+              valueFrom:
+                configMapKeyRef:
+                  key: db-dialect
+                  name: baseutil-database-configs
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: db-base-utility-url
+                  name: baseutil-database-configs
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: db-base-utility-username
+                  name: baseutil-service-secret
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: db-base-utility-password
+                  name: baseutil-service-secret
+            - name: hostname
+              value: csi-java-base-utility
+          envFrom:
+            - configMapRef:
+                name: service-configs
+            - secretRef:
+                name: service-configs-secret
+          image: >-
+            harbor.cs.local/vidaplus/base-utility-service-java-sev:${
+            parameters.Tag }
           imagePullPolicy: IfNotPresent
-          name: csi-net-bloodbnk
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: http
+            initialDelaySeconds: 1200
+            timeoutSeconds: 10
+          name: csi-base-utility
           ports:
             - containerPort: 80
               name: http
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: http
+            initialDelaySeconds: 20
+            timeoutSeconds: 10
           resources:
             limits:
-              memory: 750Mi
+              memory: 1Gi
             requests:
               cpu: 50m
-              memory: 750Mi
+              memory: 256Mi
       imagePullSecrets:
         - name: regcred
 ---
@@ -49,13 +95,14 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: csi-net-bloodbnk
-  name: csi-net-bloodbnk
+    app: csi-java-base-utility
+  name: csi-java-base-utility
   namespace: csi-dev
 spec:
   ports:
     - port: 80
       targetPort: 80
   selector:
-    app: csi-net-bloodbnk
+    app: csi-base-utility
   type: ClusterIP
+
