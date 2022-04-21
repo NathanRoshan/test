@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+bases:
+- ../../base
+images:
+- name: harbor.cs.local/vidaplus/test-ui-2
+  newTag: master-v1.2.0.4-ga33908d
+kind: Kustomization
+namespace: csi-dev
+patchesStrategicMerge:
+- replica-count.yaml

@@ -92,7 +92,7 @@ spec:
                 name: service-configs
             - secretRef:
                 name: service-configs-secret
-          image: 'harbor.cs.local/vidaplus/csi-phr-base:4.0.22.202'
+          image: 'harbor.cs.local/vidaplus/csi-phr-base:4.0.22.242'
           livenessProbe:
             httpGet:
               path: /api/v1.0/actuator/health
