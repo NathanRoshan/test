@@ -1,36 +1,10 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Rollout
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: csi-rms-masterdata
   namespace: csi-dev
 spec:
-  replicas: 1
-  strategy:
-    canary:
-      canaryService: csi-pms-rms-masterdata-canary
-      stableService: csi-pms-rms-masterdata
-      canaryMetadata:
-        annotations:
-          role: canary
-        labels:
-          role: canary
-      trafficRouting:
-        smi: { }
-      steps:
-        - setWeight: 20
-        - pause:
-            duration: "30s"
-        - setWeight: 50
-        - pause:
-            duration: "30s"
-      analysis:
-        templates:
-          - templateName: success-rate
-        startingStep: 2 # delay starting analysis run until setWeight: 10%
-        args:
-          - name: service-name
-            value: csi-rms-masterdata
-  revisionHistoryLimit: 2
+  replicas: 4
   selector:
     matchLabels:
       app: csi-rms-masterdata
@@ -43,10 +17,6 @@ spec:
         module: rms
         tier: backend
         track: stable
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/path: "/metrics"
-        prometheus.io/port: "9090"
     spec:
       containers:
         - env:
@@ -99,7 +69,8 @@ spec:
             - secretRef:
                 name: service-adt-secret
           image: >-
-            harbor.cs.local/vidaplus/csi-rms-masterdata-java-sev:4.1.21.0
+            harbor.cs.local/vidaplus/csi-rms-masterdata-java-sev:4.1.36.0
+            parameters.Tag }
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
@@ -125,3 +96,18 @@ spec:
               memory: 1Gi
       imagePullSecrets:
         - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: csi-pms-rms-masterdata
+  name: csi-pms-rms-masterdata
+  namespace: csi-dev
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: csi-rms-masterdata
+  type: ClusterIP
