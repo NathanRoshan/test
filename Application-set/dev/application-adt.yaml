@@ -1,0 +1,229 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-adt-ui
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: ADT/adtui/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-dsdental
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: ADT/dsdental/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-mlmui
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: ADT/mlmui/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-morgueui
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: ADT/morgueui/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-pmsadtrequest
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: ADT/pmsadtrequest/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-rmsmasterdata
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: ADT/rmsmasterdata/dev
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-rmsmorgue
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: ADT/rmsmorgue/dev
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-rmsreservation
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: ADT/rmsreservation/dev
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-rmsresourceregistry
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: ADT/rmsresourceregistry/dev
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-rmsui
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: ADT/rmsui/dev
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-setupui
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: ADT/setupui/dev
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
