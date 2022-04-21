@@ -1,1 +1,6 @@
-1asswsws
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: csi-net-bloodbnk
+  namespace: csi-dev
+
