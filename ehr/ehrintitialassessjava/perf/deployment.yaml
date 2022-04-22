@@ -1,3 +1,124 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: csi-ehr-initialassessment
+  namespace: csi-perf
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: csi-ehr-initialassessment
+      tier: backend
+      track: stable
+  template:
+    metadata:
+      labels:
+        app: csi-ehr-initialassessment
+        module: ehr
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - env:
+            - name: active_profile
+              valueFrom:
+                configMapKeyRef:
+                  key: activeProfile
+                  name: service-configs
+            - name: configserver
+              valueFrom:
+                configMapKeyRef:
+                  key: config_server
+                  name: service-configs
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: database-url
+                  name: ehr-database-configs
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: db-ini-username
+                  name: ehr-database-secret
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: db-ini-password
+                  name: ehr-database-secret
+            - name: SPRING_JPA_HIBERNATE_DIALECT
+              valueFrom:
+                configMapKeyRef:
+                  key: db-dialect
+                  name: service-configs
+            - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: db-driver
+                  name: service-configs
+            - name: SPRING_JPA_DATABASE-PLATFORM
+              valueFrom:
+                configMapKeyRef:
+                  key: SPRING_JPA_HIBERNATE_DIALECT
+                  name: service-configs
+            - name: HIBERNATE_DIALECT
+              valueFrom:
+                configMapKeyRef:
+                  key: db-dialect
+                  name: service-configs
+            - name: SPRING_JPA_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  key: db-database
+                  name: ehr-database-secret
+            - name: hostname
+              value: csi-java-ehr-initialassessment
+          envFrom:
+            - configMapRef:
+                name: service-configs
+            - secretRef:
+                name: service-configs-secret
+          image: >-
+            harbor.cs.local/vidaplus/csi-ehr-initialassessment-java-sev:4.1.0.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: http
+            initialDelaySeconds: 1200
+            periodSeconds: 40
+            timeoutSeconds: 30
+          name: csi-ehr-initialassessment
+          ports:
+            - containerPort: 80
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 40
+            timeoutSeconds: 30
+          resources:
+            limits:
+              memory: 1Gi
+            requests:
+              cpu: 50m
+              memory: 256Mi
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: csi-java-ehr-initialassessment
+  name: csi-java-ehr-initialassessment
+  namespace: csi-perf
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: csi-ehr-initialassessment
+  type: ClusterIP
+
