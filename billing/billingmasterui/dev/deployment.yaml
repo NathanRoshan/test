@@ -1,6 +1,51 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: csi-net-bloodbnk
+  name: csi-billing-ui
   namespace: csi-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csi-billing-ui
+      tier: frontend
+      track: stable
+  template:
+    metadata:
+      labels:
+        app: csi-billing-ui
+        module: billing
+        tier: frontend
+        track: stable
+    spec:
+      containers:
+        - image: 'harbor.cs.local/vidaplus/billing-ui:4.5.56.0'
+          imagePullPolicy: IfNotPresent
+          name: csi-billing-ui
+          ports:
+            - containerPort: 80
+              name: http
+          resources:
+            limits:
+              memory: 1Gi
+            requests:
+              cpu: 25m
+              memory: 256Mi
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: csi-billing-ui-service
+  name: csi-billing-ui-service
+  namespace: csi-dev
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: csi-billing-ui
+  type: ClusterIP
 
