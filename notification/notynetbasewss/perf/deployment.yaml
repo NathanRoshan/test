@@ -1,3 +1,58 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  labels:
+    app: csi-net-base-wss
+  name: csi-net-base-wss
+  namespace: csi-perf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csi-net-base-wss
+  template:
+    metadata:
+      labels:
+        app: csi-net-base-wss
+    spec:
+      containers:
+        - env:
+            - name: ASPNETCORE_ENVIRONMENT
+              valueFrom:
+                configMapKeyRef:
+                  key: net_environment
+                  name: service-configs
+            - name: config_server
+              valueFrom:
+                configMapKeyRef:
+                  key: config_server
+                  name: service-configs
+          image: 'harbor.cs.local/vidaplus/csi-net-base-wss:4.0.28.0'
+          name: csi-net-noty-wss
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: 1Gi
+            requests:
+              cpu: 50m
+              memory: 750Mi
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: csi-net-base-wss
+  name: csi-net-base-wss
+  namespace: csi-perf
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  selector:
+    app: csi-net-base-wss
+  type: LoadBalancer
+
