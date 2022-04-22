@@ -30,7 +30,7 @@ spec:
                 configMapKeyRef:
                   key: config_server
                   name: service-configs
-          image: 'harbor.cs.local/vidaplus/lab-scheduled:${no tag}'
+          image: 'harbor.cs.local/vidaplus/lab-scheduled:4.0.18.0-a1'
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 10
