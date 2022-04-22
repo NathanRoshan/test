@@ -68,7 +68,7 @@ spec:
             - secretRef:
                 name: service-configs-secret
           image: >-
-            harbor.cs.local/vidaplus/csi-ehr-or-booking-java-sev: 4.0.80.1
+            harbor.cs.local/vidaplus/csi-ehr-or-booking-java-sev:4.0.80.1
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
