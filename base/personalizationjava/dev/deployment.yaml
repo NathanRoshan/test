@@ -1,6 +1,75 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: csi-net-bloodbnk
+  name: csi-personalization
   namespace: csi-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csi-personalization
+      tier: backend
+      track: stable
+  template:
+    metadata:
+      labels:
+        app: csi-personalization
+        module: base
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - env:
+            - name: SPRING_DATA_MONGODB_HOST
+              value: mongo
+            - name: SPRING_DATA_MONGODB_PORT
+              value: '27017'
+            - name: hostname
+              value: csi-personalization-service
+            - name: EUREKA_INSTANCE_HOSTNAME
+              value: csi-personalization-service
+            - name: configserver
+              valueFrom:
+                configMapKeyRef:
+                  key: config_server
+                  name: service-configs
+            - name: active_profile
+              valueFrom:
+                configMapKeyRef:
+                  key: activeProfile
+                  name: service-configs
+          envFrom:
+            - configMapRef:
+                name: service-configs
+            - secretRef:
+                name: service-configs-secret
+          image: >-
+            harbor.cs.local/vidaplus/csi-personalization-service-java-sev:4.0.50.42
+          name: csi-personalization
+          ports:
+            - containerPort: 80
+              name: http
+          resources:
+            limits:
+              memory: 1Gi
+            requests:
+              cpu: 50m
+              memory: 750Mi
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: csi-personalization-service
+  name: csi-personalization-service
+  namespace: csi-dev
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: csi-personalization
+  type: ClusterIP
 
