@@ -1,6 +1,51 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: csi-net-bloodbnk
+  name: csi-him-ui
   namespace: csi-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csi-him-ui
+      tier: frontend
+      track: stable
+  template:
+    metadata:
+      labels:
+        app: csi-him-ui
+        module: him
+        tier: frontend
+        track: stable
+    spec:
+      containers:
+        - image: 'harbor.cs.local/vidaplus/him-ui:4.1.172.0-b14'
+          imagePullPolicy: IfNotPresent
+          name: csi-him-ui
+          ports:
+            - containerPort: 80
+              name: http
+          resources:
+            limits:
+              memory: 1Gi
+            requests:
+              cpu: 25m
+              memory: 256Mi
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: csi-him-ui-service
+  name: csi-him-ui-service
+  namespace: csi-dev
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: csi-him-ui
+  type: ClusterIP
 
