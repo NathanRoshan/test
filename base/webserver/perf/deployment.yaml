@@ -1,6 +1,56 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: csi-net-bloodbnk
-  namespace: csi-dev
+  name: webserver
+  namespace: csi-perf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webserver
+      tier: frontend
+      track: stable
+  template:
+    metadata:
+      labels:
+        app: webserver
+        tier: frontend
+        track: stable
+    spec:
+      containers:
+        - env:
+            - name: WEB_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  key: domain_name
+                  name: security-service-configs
+          image: 'harbor.cs.local/vidaplus/webserver:1.1.6'
+          imagePullPolicy: IfNotPresent
+          name: webserver
+          ports:
+            - containerPort: 80
+              name: http
+          resources:
+            limits:
+              memory: 1Gi
+            requests:
+              cpu: 50m
+              memory: 256Mi
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: webserver-service
+  name: webserver-service
+  namespace: csi-perf
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: webserver
+  type: ClusterIP
 
