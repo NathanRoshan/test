@@ -1,6 +1,50 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: csi-net-bloodbnk
-  namespace: csi-dev
+  name: csi-config-ui
+  namespace: csi-perf
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: csi-config-ui
+      tier: frontend
+      track: stable
+  template:
+    metadata:
+      labels:
+        app: csi-config-ui
+        tier: frontend
+        track: stable
+    spec:
+      containers:
+        - image: 'harbor.cs.local/vidaplus/base-ui:4.0.64.0'
+          imagePullPolicy: IfNotPresent
+          name: csi-config-ui
+          ports:
+            - containerPort: 80
+              name: http
+          resources:
+            limits:
+              memory: 100Mi
+            requests:
+              cpu: 2m
+              memory: 25Mi
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: csi-config-ui-service
+  name: csi-config-ui-service
+  namespace: csi-perf
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: csi-config-ui
+  type: ClusterIP
 
