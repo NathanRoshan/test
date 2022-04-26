@@ -1,0 +1,41 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-econsent
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: econsent/econsent/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-econsentui
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: econsent/econsentui/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD

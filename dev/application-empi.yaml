@@ -1,0 +1,104 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-empicrsintegration
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: empi/empicrsintegration/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-empihijridatedotnet
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: empi/empihijridatedotnet/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-empireaddotnet
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: empi/empireaddotnet/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-empiui
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: empi/empiui/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-empiwritedotnet
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: empi/empiwritedotnet/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD

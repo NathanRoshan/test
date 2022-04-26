@@ -1,0 +1,103 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-baseutilityservicejava
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: base/baseutilityservicejava/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-configui
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: base/configui/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-facadpatientsnapshot
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: base/facadpatientsnapshot/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-personalizationjava
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: base/personalizationjava/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-webserver
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: base/webserver/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD

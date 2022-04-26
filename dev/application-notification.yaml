@@ -1,0 +1,125 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-notynetbaseemail
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: notification/notynetbaseemail/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-notynetbasenotification
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: notification/notynetbasenotification/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-notynetbasequery
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: notification/notynetbasequery/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-notynetbasesms
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: notification/notynetbasesms/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-notynetbasetemplate
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: notification/notynetbasetemplate/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-notynetbasewss
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+  destination:
+    namespace: csi-dev
+    server: https://172.15.100.13:6443
+  project: csi.dev.cloudsol.lk
+  source:
+    path: notification/notynetbasewss/dev/
+    repoURL: https://nathan.roshan@172.15.100.56/scm/ky/deployment.git
+    targetRevision: HEAD
